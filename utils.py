@@ -2,11 +2,12 @@ import os
 import sys
 
 import pygame
+
 pygame.init()
-pygame.mixer.init()
-pygame.font.init()
-SIZE = WIDTH, HEIGHT = 1000, 1000
+SIZE = WIDTH, HEIGHT = 800, 450
+
 screen = pygame.display.set_mode(SIZE)
+FPS = 30
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data/sprites', name)

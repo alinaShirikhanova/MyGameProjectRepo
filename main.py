@@ -1,18 +1,20 @@
-import sys
-
-import pygame
+import pygame as pg
 
 from movable.player import Player
-from utils import WIDTH, HEIGHT, screen
+from utils import WIDTH, HEIGHT, screen, FPS
 
-player_group = pygame.sprite.Group()
+player_group = pg.sprite.Group()
 player = Player(10, (WIDTH // 2, HEIGHT // 2), player_group)
-while True:
-    for e in pygame.event.get():
-        if e.type == pygame.QUIT:
-            # сразу будем завершать программу, чтобы не ломать переходы между сценами
-            sys.exit()
+clock = pg.time.Clock()
+
+running = True
+while running:
+    for e in pg.event.get():
+        if e.type == pg.QUIT:
+            running = False
+    clock.tick(FPS)
     screen.fill('white')
-    player_group.update()
     player_group.draw(screen)
-    pygame.display.update()
+    player_group.update()
+    pg.display.update()
+

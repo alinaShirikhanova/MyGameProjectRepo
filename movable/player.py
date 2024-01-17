@@ -9,23 +9,23 @@ class Player(Movable):
         super().__init__(speed, load_image('player.png'), 1,
                          6, pos, group)
 
+
     def update(self):
         pressed = pygame.key.get_pressed()
-        controls = [pressed[pygame.K_w],
-                    pressed[pygame.K_a],
-                    pressed[pygame.K_s],
-                    pressed[pygame.K_d]]
+        controls = [pressed[pygame.K_UP], pressed[pygame.K_DOWN],
+                    pressed[pygame.K_LEFT], pressed[pygame.K_RIGHT]]
         if any(controls):
-            self.move(*controls)
+            if pressed[pygame.K_UP]:
+                self.rect.y -= self.speed
+            if pressed[pygame.K_DOWN]:
+                self.rect.y += self.speed
+            if pressed[pygame.K_LEFT]:
+                self.rect.x -= self.speed
+            if pressed[pygame.K_RIGHT]:
+                self.rect.x += self.speed
+            super().update()
 
-    def move(self, up, left, down, right):
-        if up:
-            self.rect.y -= self.speed
-        if down:
-            self.rect.y += self.speed
-        if left:
-            self.flip_left = True
-            self.rect.x -= self.speed
-        if right:
-            self.rect.x += self.speed
-        super().update()
+
+
+
+
