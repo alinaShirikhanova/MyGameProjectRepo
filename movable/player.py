@@ -20,6 +20,7 @@ class Player(Movable):
             if pressed[pygame.K_DOWN]:
                 self.rect.y += self.speed
             if pressed[pygame.K_LEFT]:
+                self.flip_left = True
                 self.rect.x -= self.speed
             if pressed[pygame.K_RIGHT]:
                 self.rect.x += self.speed

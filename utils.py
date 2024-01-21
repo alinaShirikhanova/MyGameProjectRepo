@@ -1,5 +1,6 @@
 import os
 import sys
+from random import randint
 
 import pygame
 
@@ -23,3 +24,6 @@ def load_image(name, colorkey=None):
     else:
         image = image.convert_alpha()
     return image
+
+def random_pos():
+    return randint(0, WIDTH), randint(0, HEIGHT)
