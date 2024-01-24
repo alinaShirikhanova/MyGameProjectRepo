@@ -6,8 +6,7 @@ from utils import load_image
 
 class Player(Movable):
     def __init__(self, speed, pos, group):
-        super().__init__(speed, load_image('player.png'), 1,
-                         6, pos, group)
+        super().__init__(speed, load_image('player.png'), 1,6, pos, group)
 
 
     def update(self):
@@ -20,6 +19,7 @@ class Player(Movable):
             if pressed[pygame.K_DOWN]:
                 self.rect.y += self.speed
             if pressed[pygame.K_LEFT]:
+                self.flip_left = True
                 self.rect.x -= self.speed
             if pressed[pygame.K_RIGHT]:
                 self.rect.x += self.speed
