@@ -6,7 +6,7 @@ import pygame
 from movable.movable import Movable
 from utils import load_image, random_pos, WIDTH, HEIGHT
 
-
+TO_GENERATE_ENEMY = pygame.USEREVENT + 7
 class Enemy(Movable):
     def __init__(self, speed, pos, group):
         super().__init__(speed, load_image('enemy.png'), 1, 6, pos, group)

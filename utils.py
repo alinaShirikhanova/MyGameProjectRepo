@@ -9,7 +9,7 @@ SIZE = WIDTH, HEIGHT = 800, 450
 
 screen = pygame.display.set_mode(SIZE)
 FPS = 30
-font = pygame.font.Font('data/font/marker_font.ttf')
+font = pygame.font.Font('data/font/marker_font.ttf', 20)
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data/sprites', name)
