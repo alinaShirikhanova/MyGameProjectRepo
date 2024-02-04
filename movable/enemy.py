@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 
 import pygame
 
@@ -25,4 +25,4 @@ class Enemy(Movable):
     @staticmethod
     def generate(n, group):
         for i in range(n):
-            Enemy(choice(Enemy.speeds), random_pos(), group)
+            Enemy(randint(1, 5), random_pos(), group)

@@ -24,58 +24,69 @@ music.load('data/sounds/battle1.mp3')
 music.set_volume(0.1)
 music.play(-1)
 start_frame = font.render('CATCH IF YOU CAN', True, 'blue')
+press_any_key = font.render('Press any key to start', True, 'red')
+events = [pg.KEYDOWN, pg.MOUSEBUTTONDOWN]
+running = True
+def game():
+    running = True
+    while running:
+        for e in pg.event.get():
+            if e.type == pg.QUIT:
+                running = False
+            if e.type == TO_GENERATE_ENEMY:
+                Enemy.generate(1, enemies)
+            if e.type == TO_GENERATE_COINS:
+                Coin.generate(randint(3, 6), collectables)
+            if e.type == TO_GENERATE_SHIELD:
+                Shield.generate(1, collectables)
+            if e.type == TO_LOSE_SHIELD:
+                player.protected = False
+                pg.mixer.Sound('data/sounds/shield_down.wav').play()
 
-while True:
-    for e in pg.event.get():
-        if e.type == pg.QUIT:
-            running = False
+        clock.tick(FPS)
+        screen.fill('white')
 
-    screen.fill('white')
-    pg.display.update()
+        col_enemy = pg.sprite.spritecollideany(player, enemies)
+        if col_enemy:
+            pg.mixer.Sound('data/sounds/enemy_hit.wav').play()
+            col_enemy.kill()
+            if player.lives < 1:
+                running = False
+            else:
+                player.lives -= 1
+
+
+        col_coins = pg.sprite.spritecollideany(player, collectables)
+        if col_coins:
+            col_coins.collect(player)
+            print(player.score)
+
+
+        player_group.draw(screen)
+        player_group.update()
+
+        collectables.draw(screen)
+        collectables.update()
+
+        enemies.draw(screen)
+        enemies.update(player)
+
+        pg.display.update()
 
 
 running = True
-
 while running:
     for e in pg.event.get():
         if e.type == pg.QUIT:
             running = False
-        if e.type == TO_GENERATE_ENEMY:
-            Enemy.generate(enemies)
-        if e.type == TO_GENERATE_COINS:
-            Coin.generate(randint(3, 6), collectables)
-        if e.type == TO_GENERATE_SHIELD:
-            Shield.generate(1, collectables)
-        if e.type == TO_LOSE_SHIELD:
-            player.protected = False
-            pg.mixer.Sound('data/sounds/shield_down.wav').play()
+        if e.type in events:
+            game()
+
 
     clock.tick(FPS)
     screen.fill('white')
-
-    col_enemy = pg.sprite.spritecollideany(player, enemies)
-    if col_enemy:
-        pg.mixer.Sound('data/sounds/enemy_hit.wav').play()
-        col_enemy.kill()
-        if player.lives < 1:
-            running = False
-        else:
-            player.lives -= 1
-
-
-    col_coins = pg.sprite.spritecollideany(player, collectables)
-    if col_coins:
-        col_coins.collect(player)
-        print(player.score)
-
-
-    player_group.draw(screen)
-    player_group.update()
-
-    collectables.draw(screen)
-    collectables.update()
-
-    enemies.draw(screen)
-    enemies.update(player)
-
+    screen.blit(start_frame, (WIDTH // 2 - start_frame.get_width() // 2, HEIGHT // 2 - start_frame.get_height()))
+    screen.blit(press_any_key, (WIDTH // 2 - press_any_key.get_width() // 2, HEIGHT // 2 ))
     pg.display.update()
+
+
