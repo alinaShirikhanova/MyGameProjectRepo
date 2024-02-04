@@ -1,5 +1,6 @@
 import os
 import sys
+from random import randint
 
 import pygame
 
@@ -8,6 +9,7 @@ SIZE = WIDTH, HEIGHT = 800, 450
 
 screen = pygame.display.set_mode(SIZE)
 FPS = 30
+font = pygame.font.Font('data/font/marker_font.ttf')
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data/sprites', name)
@@ -23,3 +25,6 @@ def load_image(name, colorkey=None):
     else:
         image = image.convert_alpha()
     return image
+
+def random_pos():
+    return randint(0, WIDTH), randint(0, HEIGHT)

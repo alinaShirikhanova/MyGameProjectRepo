@@ -7,6 +7,9 @@ from utils import load_image
 class Player(Movable):
     def __init__(self, speed, pos, group):
         super().__init__(speed, load_image('player.png'), 1,6, pos, group)
+        self.lives = 10
+        self.score = 0
+        self.protected = False
 
 
     def update(self):

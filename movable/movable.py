@@ -14,4 +14,3 @@ class Movable(AnimatedSprite):
         if self.flip_left:
             self.flip_left = False
             self.image = pygame.transform.flip(self.image, True, False)
-
